@@ -32,11 +32,10 @@ class User extends DataLayer
       return false;
     }
 
-    if (!$this->validateEmail()) {
+    if (!$this->validateEmail() || !$this->validatePassword()) {
       return false;
     }
 
-    $this->password = password_hash($this->password, PASSWORD_BCRYPT);
     return parent::save();
   }
 
@@ -59,6 +58,21 @@ class User extends DataLayer
       return false;
     }
 
+    return true;
+  }
+
+  function validatePassword()
+  {
+    if (mb_strlen($this->password) < 8) {
+      $this->fail = new Exception("Informe uma senha pelo menos 8 caracteres");
+      return false;
+    }
+
+    if (password_get_info($this->password)['algo']) {
+      return true;
+    }
+
+    $this->password = password_hash($this->password, PASSWORD_BCRYPT);
     return true;
   }
 }

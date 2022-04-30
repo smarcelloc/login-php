@@ -18,8 +18,10 @@ $router->get('/senha/{email}/{forget}', 'Web:reset', 'web.reset');
  * AUTH
  */
 $router->group(null);
-$router->get('/login', 'Auth:login', 'auth.login');
+$router->post('/login', 'Auth:login', 'auth.login');
 $router->post('/register', 'Auth:register', 'auth.register');
+$router->post('/forget', 'Auth:forget', 'auth.forget');
+$router->post('/reset', 'Auth:reset', 'auth.reset');
 
 /**
  * AUTH SOCIAL
