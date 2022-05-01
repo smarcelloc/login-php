@@ -91,11 +91,71 @@ function destroyFlash(): void
 }
 
 /**
- * Verificar se o usuário está logado no sistema
+ * Criar sessão com criptografia.
  *
- * @return boolean
+ * @param string $key
+ * @param mixed $value
+ * @return void
  */
-function isUserLogged(): bool
+function setSession(string $key, $value)
 {
-  return !empty($_SESSION[SESSION_USER_LOGGED]);
+  $valueToString = json_encode($value);
+
+  $_SESSION[$key] = encrypt($valueToString);
+}
+
+/**
+ * Recuperar o texto da sessão.
+ *
+ * @param string $key
+ * @return string
+ */
+function getSession(string $key)
+{
+  $hash = $_SESSION[$key];
+  $value = decrypt($hash);
+
+  return json_decode($value, true);
+}
+
+/**
+ * Apagar a sessão.
+ *
+ * @param string $key
+ * @return void
+ */
+function unsetSession(string $key)
+{
+  unset($_SESSION[$key]);
+}
+
+/**
+ * Descriptografar o hash e recuperar a mensagem.
+ *
+ * @param string $hash
+ * @return string
+ */
+function decrypt(string $hash)
+{
+  $text = base64_decode($hash);
+  $cipherIvLength = openssl_cipher_iv_length('AES-256-CBC');
+
+  $iv = mb_substr($text, 0, $cipherIvLength, '8bit');
+  $hashOpenssl = mb_substr($text, $cipherIvLength, null, '8bit');
+
+  return openssl_decrypt($hashOpenssl, 'AES-256-CBC', SITE['key'], OPENSSL_RAW_DATA, $iv);
+}
+
+/**
+ * Criptografar a mensagem informada.
+ *
+ * @param string $text
+ * @return void
+ */
+function encrypt(string $text)
+{
+  $iv = random_bytes(openssl_cipher_iv_length('AES-256-CBC'));
+  $hash = openssl_encrypt($text, 'AES-256-CBC', SITE['key'], OPENSSL_RAW_DATA, $iv);
+
+  return base64_encode($iv . $hash);
 }

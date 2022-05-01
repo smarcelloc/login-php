@@ -21,7 +21,6 @@ class Auth extends Controller
     $user->password = $data['password'] ?? '';
 
     if ($user->save()) {
-      $_SESSION[SESSION_USER_LOGGED] = $user;
       $this->json('redirect', ['url' => $this->router->route('web.login')]);
     }
 

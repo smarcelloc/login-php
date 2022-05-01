@@ -10,6 +10,7 @@ define('SITE', [
   'url' => 'http://localhost/login-php',
   'locale' => 'pt_BR',
   'domain' => 'localauth.com',
+  'key' => 'btVJNfT78WtAZ2xWkTcntPxpMZYjL2eM'
 ]);
 
 /**
