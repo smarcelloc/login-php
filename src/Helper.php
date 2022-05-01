@@ -108,7 +108,7 @@ function setSession(string $key, $value)
  * Recuperar o texto da sessão.
  *
  * @param string $key
- * @return string
+ * @return mixed
  */
 function getSession(string $key)
 {

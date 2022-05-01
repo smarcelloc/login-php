@@ -24,6 +24,13 @@ $router->post('/forget', 'Auth:forget', 'auth.forget');
 $router->post('/reset', 'Auth:reset', 'auth.reset');
 
 /**
+ * MY USER
+ */
+$router->group('me');
+$router->get('/', 'App:home', 'app.home');
+$router->get('/sair', 'App:logoff', 'app.logoff');
+
+/**
  * AUTH SOCIAL
  */
 

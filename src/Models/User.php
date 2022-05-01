@@ -25,6 +25,28 @@ class User extends DataLayer
     parent::__construct('users', $required, 'id', true);
   }
 
+  /**
+   * Valida o login.
+   * 
+   * @return User|false
+   */
+  public function login()
+  {
+    /**
+     * @var User
+     */
+    $user = $this->find('email = :email', "email={$this->email}")->fetch();
+
+    if (!$user || !password_verify($this->password, $user->password)) {
+      $this->fail = new Exception("E-mail ou senha informados não conferem");
+
+      return false;
+    }
+
+    unset($user->data->password);
+    return $user;
+  }
+
   public function save(): bool
   {
     if (!$this->required()) {

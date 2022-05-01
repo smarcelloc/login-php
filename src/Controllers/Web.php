@@ -10,9 +10,9 @@ class Web extends Controller
   {
     parent::__construct($router);
 
-    // if (isUserLogged()) {
-    //   $this->router->redirect('app.home');
-    // }
+    if (!empty($_SESSION[SESSION_USER_LOGGED])) {
+      $router->redirect('app.home');
+    }
   }
 
   public function login(): void
