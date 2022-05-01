@@ -115,7 +115,7 @@ function getSession(string $key)
   $hash = $_SESSION[$key];
   $value = decrypt($hash);
 
-  return json_decode($value, true);
+  return json_decode($value);
 }
 
 /**
