@@ -6,6 +6,7 @@ use CoffeeCode\DataLayer\DataLayer;
 use Exception;
 
 /**
+ * @property int $id
  * @property string $first_name
  * @property string $last_name
  * @property string $email
@@ -96,5 +97,10 @@ class User extends DataLayer
 
     $this->password = password_hash($this->password, PASSWORD_BCRYPT);
     return true;
+  }
+
+  public function checkEmailExist(string $email): bool
+  {
+    return !!$this->find('email = :email', "email={$email}", 'id')->count();
   }
 }

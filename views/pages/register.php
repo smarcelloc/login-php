@@ -4,7 +4,7 @@
     <div class="login">
         <form class="form" action="<?= $router->route("auth.register"); ?>" method="post" autocomplete="off">
             <div class="login_form_callback">
-                <?= getFlash(''); ?>
+                <?php $this->insert('pages/_messageFlash') ?>
             </div>
 
             <div class="label_2">

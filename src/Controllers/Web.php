@@ -3,6 +3,7 @@
 namespace Src\Controllers;
 
 use CoffeeCode\Router\Router;
+use Src\Models\User;
 
 class Web extends Controller
 {
@@ -53,6 +54,10 @@ class Web extends Controller
 
   public function reset(array $params)
   {
+    if (!sessionExist('user_id') || !filter_var($params['email'], FILTER_VALIDATE_EMAIL)) {
+      $this->router->redirect('web.login');
+    }
+
     $head = $this->seo->optimize(
       'Cria uma nova senha | ' . SITE['name'],
       SITE['description'],
@@ -60,7 +65,11 @@ class Web extends Controller
       routeImage('recuperar')
     );
 
-    $this->page('reset', ['head' => $head->render()]);
+    $this->page('reset', [
+      'head' => $head->render(),
+      'email' => $params['email'],
+      'forget' => $params['forget']
+    ]);
   }
 
   public function error(array $params)

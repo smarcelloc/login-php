@@ -44,7 +44,11 @@ class App extends Controller
   {
     unsetSession(SESSION_USER_LOGGED);
 
-    setFlash('info', "Você saiu com sucesso, volte logo {$this->user->first_name}.");
+    setFlash('message', [
+      'type' => 'info',
+      'message' => "Você saiu com sucesso, volte logo {$this->user->first_name}."
+    ]);
+
     $this->router->redirect('web.login');
   }
 }

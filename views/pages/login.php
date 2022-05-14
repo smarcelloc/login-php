@@ -9,7 +9,7 @@
             </div>
 
             <div class="login_form_callback">
-                <?= getFlash(''); ?>
+                <?php $this->insert('pages/_messageFlash') ?>
             </div>
 
             <label>

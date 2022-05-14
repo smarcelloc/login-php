@@ -4,8 +4,17 @@
     <div class="login">
         <form class="form" name="reset" action="<?= $router->route("auth.reset"); ?>" method="post" autocomplete="off">
             <div class="login_form_callback">
-                <?= getFlash(''); ?>
+                <?php $this->insert('pages/_messageFlash') ?>
             </div>
+
+            <?php if (isset($email)) : ?>
+                <input type="hidden" name="email" value="<?= $email ?>">
+            <?php endif ?>
+
+            <?php if (isset($forget)) : ?>
+                <input type="hidden" name="forget" value="<?= $forget ?>">
+            <?php endif ?>
+
 
             <label>
                 <span class="field">Nova Senha:</span>

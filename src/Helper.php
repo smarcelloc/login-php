@@ -57,7 +57,7 @@ function routeImage(?string $urlImage = null): string
  * @param string $value
  * @return void
  */
-function setFlash(string $key, string $value): void
+function setFlash(string $key, array $value): void
 {
   $_SESSION[SESSION_FLASH][$key] = $value;
 }
@@ -66,9 +66,9 @@ function setFlash(string $key, string $value): void
  * Retorna o valor da sessão flash
  *
  * @param string $key
- * @return string|null
+ * @return array|null
  */
-function getFlash(string $key): ?string
+function getFlash(string $key)
 {
   if (!isset($_SESSION[SESSION_FLASH][$key])) {
     return null;
@@ -116,6 +116,17 @@ function getSession(string $key)
   $value = decrypt($hash);
 
   return json_decode($value);
+}
+
+/**
+ * Existe a sessão.
+ *
+ * @param string $key
+ * @return boolean
+ */
+function sessionExist(string $key): bool
+{
+  return isset($_SESSION[$key]);
 }
 
 /**
