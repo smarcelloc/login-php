@@ -3,10 +3,10 @@
 <div class="main_content_box">
     <div class="login">
         <form class="form" action="<?= $router->route("auth.login"); ?>" method="post" autocomplete="off">
-            <div class="form_social">
-                <a href="<?= $router->route("auth.facebook"); ?>" class="btn btn-facebook">Facebook Login</a>
-                <a href="<?= $router->route("auth.google"); ?>" class="btn btn-google">Google Login</a>
-            </div>
+            <!-- <div class="form_social">
+                <a href="//$router->route("auth.facebook");" class="btn btn-facebook">Facebook Login</a>
+                <a href="//$router->route("auth.google");" class="btn btn-google">Google Login</a>
+            </div> -->
 
             <div class="login_form_callback">
                 <?php $this->insert('pages/_messageFlash') ?>
